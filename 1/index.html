@@ -1,56 +1,45 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
-    <title></title>
     <style>
       @-webkit-keyframes rotation {
         from {
           -webkit-transform: rotate(0deg);
         }
-
         to {
           -webkit-transform: rotate(360deg);
         }
       }
-
       @-moz-keyframes rotation {
         from {
           -moz-transform: rotate(0deg);
         }
-
         to {
           -moz-transform: rotate(360deg);
         }
       }
-
       @-o-keyframes rotation {
         from {
           -o-transform: rotate(0deg);
         }
-
         to {
           -o-transform: rotate(360deg);
         }
       }
-
       @keyframes rotation {
         from {
           transform: rotate(0deg);
         }
-
         to {
           transform: rotate(360deg);
         }
       }
-
       html {
         background: #FFFFFF;
       }
-
       body {
         font-family: arial;
         margin: 0;
@@ -71,21 +60,17 @@
         overflow-x: hidden;
 		place-items: center;
       }
-
       body.scrollingDisabled {
         overflow: hidden;
       }
-
       .emscripten {
         padding-right: 0;
         display: block;
       }
-
       div.emscripten {
         text-align: center;
 		font-family: "Lucida Console", Monaco, monospace;
       }
-
       canvas.emscripten {
         display: none;
         background-color: black;
@@ -94,75 +79,62 @@
         -webkit-transition: opacity 5s ease-in;
         opacity: 0;
         filter: blur(0) grayscale(0);
-        image-rendering: optimizeSpeed;            
-        image-rendering: -moz-crisp-edges;       
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: -o-crisp-edges;        
-        image-rendering: pixelated;               
-        -ms-interpolation-mode: nearest-neighbor;  
+        image-rendering: optimizeSpeed;             
+        image-rendering: -moz-crisp-edges;          
+        image-rendering: -webkit-optimize-contrast; 
+        image-rendering: -o-crisp-edges;            
+        image-rendering: pixelated;                 
+        -ms-interpolation-mode: nearest-neighbor;   
       }
-
       canvas.active {
         animation-name: fadeIn;
         animation-duration: 2s;
         opacity: 1;
       }
-
       canvas.paused {
         animation-name: blur;
         animation-duration: 0.5s;
         filter: blur(2px) grayscale(1);
       }
-
       canvas.unpaused {
         animation-name: none;
       }
-
       canvas.animatedSizeTransitions {
         transition: width 0.3s ease, height 0.3s ease;
       }
-
       @keyframes fadeIn {
         0% {
           opacity: 0;
         }
-
         100% {
           opacity: 1;
         }
       }
-
       @keyframes blur {
         0% {
           filter: blur(0) grayscale(0);
         }
-
         100% {
           filter: blur(2px) grayscale(1);
         }
       }
-
       .spinner {
         height: 30px;
         width: 30px;
-
         -webkit-animation: rotation 0.8s linear infinite;
         -moz-animation: rotation 0.8s linear infinite;
         -o-animation: rotation 0.8s linear infinite;
         animation: rotation 0.8s linear infinite;
-
         border: 5px solid #bdff00;
         border-top: 5px solid #719900;
         border-radius: 100%;
       }
-
       #status {
         display: inline-block;
         vertical-align: top;
         font-weight: bold;
         color: white;
       }
-
       #progress {
         width: 250px;
         height: 10px;
@@ -170,7 +142,6 @@
         appearance: none;
         padding: 5px;
       }
-
       progress[value]::-webkit-progress-bar {
         background-color: #8492a6;
         height: 10px;
@@ -181,7 +152,6 @@
         height: 10px;
         border-radius: 15px;
       }
-
       div.loading {
         position: absolute;
         top: 0;
@@ -198,7 +168,6 @@
         padding: 10px;
         margin: 10px;
       }
-
       .output-container {
         text-align: center;
         margin-top: auto;
@@ -216,7 +185,6 @@
 		outline-style: dashed;
         font-family: "Lucida Console", Monaco, monospace;
       }
-
       #output {
         display: none;
         height: 200px;
@@ -228,7 +196,6 @@
         padding: 0;
         width: 100%;
       }
-
       #message-container {
         display: none;
         min-height: 50px;
@@ -240,7 +207,6 @@
         position: absolute;
         top: 0;
       }
-
       #messages {
         margin-left: 50px;
         color: white;
@@ -249,13 +215,11 @@
         border: none;
         padding: 0;
       }
-
       img.qrCode {
          opacity: 1.0;
          width: 50%;
          height: 50%;
       }
-
       #pauseMenuContainer {
         position: absolute;
         top: 0;
@@ -266,12 +230,10 @@
         justify-content: center;
         align-items: center;
       }
-
       #pauseMenuContainer[hidden] {
         display: none !important;
         opacity: 0;
       }
-
       #pauseMenuBorder {
         background: linear-gradient(135deg, #FA1E4E, transparent 40%);
         padding: 1px;
@@ -280,7 +242,6 @@
         width: 70vw;
         max-width: 400px;
       }
-
       #pauseMenu {
         display: flex;
         flex-direction: column;
@@ -292,7 +253,6 @@
         animation-duration: 0.5s;
         opacity: 1;
       }
-
       #pauseMenu button {
         font-weight: 500;
         font-size: 17px;
@@ -305,19 +265,15 @@
         -webkit-user-select: none;
         user-select: none;
       }
-
       #pauseMenu button#quitButton {
         background: #FA1E4E40;
       }
-
       #pauseMenu button:hover {
         filter: brightness(1.15);
       }
-
       #pauseMenu button:active {
         filter: brightness(0.85);
       }
-
       #pauseMenu button[hidden] {
         display: none;
       }
@@ -346,23 +302,21 @@
     <div class="loading">
       <div class="spinner" id="spinner"></div>
       <div class="emscripten" id="status">Downloading...</div>
-
       <progress value="0" max="100" id="progress" hidden="1"></progress>
     </div>
     <div class="output-container" id="output-container">
     </div>
-
     <div id="message-container">
       <div id="messages">
       </div>
     </div>
-
     <script type="text/javascript">
+
 	function changecolor(el) {
 		document.body.style.backgroundColor = el.value;
 	}
-	
       const CHANGE_ASPECT_RATIO = true;
+
       var bodyElement = document.getElementsByTagName("body")[0];
       var statusElement = document.getElementById("status");
       var progressElement = document.getElementById("progress");
@@ -377,26 +331,21 @@
       var pauseMenu = document.getElementById("pauseMenuContainer");
       var resumeButton = document.getElementById("resumeButton");
       var quitButton = document.getElementById("quitButton");
-
       const messageContainerElement = document.getElementById("message-container");
       const messagesElement = document.getElementById("messages");
       let rollbackMessages = [];
-
       let clearRollbackMessagesTimeoutId = -1;
       const showRollbackMessage = function (message) {
         let messages = "";
         rollbackMessages.push(message);
         rollbackMessages.forEach(m => messages += "<p>" + m + "</p>");
-
         messagesElement.innerHTML = messages;
         messageContainerElement.style.display = 'block';
-
         if (clearRollbackMessagesTimeoutId === -1) {
           clearTimeout(clearRollbackMessagesTimeoutId);
         }
         clearRollbackMessagesTimeoutId = setTimeout(clearRollbackMessages, 5000);
       };
-
       const clearRollbackMessages = function () {
         clearRollbackMessagesTimeoutId = -1;
         rollbackMessages = [];
@@ -404,7 +353,6 @@
       };
 
 	  var loadprogress = 0;
-		
       var startingHeight, startingWidth;
       var startingAspect;
       var Module = {
@@ -416,30 +364,37 @@
           return function (text) {
 
 			if (text === "Starting WAD") {
+
 				loadprogress += 1;
 			}
 
 			if (loadprogress === 1) {
+
 				Module.setStatus(text);
 			}
 
 			else if (loadprogress >= 2) {
+
 				Module.setStatus("");
 			}
-			
+
             if (arguments.length > 1)
               text = Array.prototype.slice.call(arguments).join(" ");
+
             console.log(text);
             if (text === "Entering main loop.") {
+
               ensureAspectRatio();
+
 			  loadprogress += 1;
+
               canvas.width = 1920;
               canvas.height = 1080;
 
             }
             if (element) {
               element.value += text + "\n";
-              element.scrollTop = element.scrollHeight;
+              element.scrollTop = element.scrollHeight; 
             }
           };
         })(),
@@ -450,7 +405,6 @@
         },
         canvas: (function () {
           var canvas = document.getElementById("canvas");
-
           return canvas;
         })(),
         setStatus: function (text) {
@@ -472,6 +426,7 @@
             progressElement.value = null;
             progressElement.max = null;
             progressElement.hidden = true;
+
 
             if (!text) {
               spinnerElement.style.display = "none";
@@ -496,6 +451,7 @@
       };
       Module.setStatus("Downloading...");
       window.onerror = function (event) {
+
         Module.setStatus("Exception thrown, see JavaScript console");
         spinnerElement.style.display = "none";
         Module.setStatus = function (text) {
@@ -505,49 +461,42 @@
 
       if (typeof window === "object") {
         Module['arguments'] = window.location.search.substr(1).trim().split('&');
+
         if (!Module['arguments'][0]) {
           Module['arguments'] = [];
         }
       }
-	
 
 	  var stopfps = 0;
-
 
       var g_pWadLoadCallback = undefined;
       function setWadLoadCallback( _wadLoadCallback ) 
       {
         g_pWadLoadCallback = _wadLoadCallback;
       }
-
       var g_pAddAsyncMethod = -1;
-
       function setAddAsyncMethod( asyncMethod )
       {
         g_pAddAsyncMethod = asyncMethod;
       }
-
       var g_pJSExceptionHandler = undefined;
-
       function setJSExceptionHandler( exceptionHandler )
       {
         if (typeof exceptionHandler == "function") {
             g_pJSExceptionHandler = exceptionHandler;
-        }
-      } 
-
+        } // end if
+      } // end setJSExceptionHandler
       function hasJSExceptionHandler()
       {
         return (g_pJSExceptionHandler != undefined) && (typeof g_pJSExceptionHandler == "function");
-      } r
-
+      } // end hasJSExceptionHandler
       function doJSExceptionHandler( exceptionJSON )
       {
         if (typeof g_pJSExceptionHandler == "function") {
           var exception = JSON.parse( exceptionJSON );
           g_pJSExceptionHandler( exception );
-        }
-      } 
+        } // end if
+      } // end doJSExceptionHandler
 
       function manifestFiles()
       {
@@ -841,67 +790,108 @@
 "mus/wind.ogg",
 "mus/wind_highplace.ogg" ].join( ";");
       }
-
-		// hey its me its verity
+		// hey, its me, its verity
+      function manifestFilesMD5()
+      {
+        return [ ];
+      }
       function onFirstFrameRendered()
       {
-          /onsole.log("First frame rendered!");
+          //console.log("First frame rendered!");
       }
-
       function onGameSetWindowSize(width,height)
       {
           if (startingHeight === undefined && startingWidth === undefined) {
               console.log("Initial window size set to width: " + width + ", height: " + height);
-
               startingHeight = height;
               startingWidth = width;
               startingAspect = startingWidth / startingHeight;
           }
       }
 
+    function triggerAd(adId, _callback_beforeAd, _callback_afterAd, _callback_adDismissed, _callback_adViewed, _callback_adbreakDone) {
+
+       var pRValueCopy = triggerAdPrefix( _callback_beforeAd, _callback_afterAd, _callback_adDismissed, _callback_adViewed, _callback_adbreakDone );
+       var pCallbackBeforeAd = pRValueCopy + (0*16);
+       var pCallbackAfterAd = pRValueCopy + (1*16);
+       var pCallbackAdDismissed = pRValueCopy + (2*16);
+       var pCallbackAdViewed = pRValueCopy + (3*16);
+       var pCallbackAdBreakDone = pRValueCopy + (4*16);
+       adBreak({
+         "type": "reward",                  
+         "name": adId,                     
+         "beforeAd": () => {             
+           console.log("beforeAd");
+
+           doGMLCallback( pCallbackBeforeAd, { id:adId } );
+         },
+         "afterAd" : () => {               
+           console.log("afterAd");
+
+           doGMLCallback( pCallbackAfterAd, { id:adId } );
+         },
+         "beforeReward": (showAdFn) => {      
+           console.log("beforeReward");
+           showAdFn();
+
+         },
+         "adDismissed": () => {             
+           console.log("adDismissed");
+
+           doGMLCallback( pCallbackAdDismissed, { id:adId } );
+         },
+         "adViewed": () => {               
+           console.log("adViewed");
+           // trigger _callback_adViewed to game
+           doGMLCallback( pCallbackAdViewed, { id:adId } );
+         },
+         "adBreakDone": (placementInfo) => {  
+           console.log("adBreakDone");
+           // trigger _callback_adBreakDone to game
+           doGMLCallback( pCallbackAdBreakDone, { id:adId } );
+           triggerAdPostfix( pRValueCopy );
+         }, 
+       });
+      }
       function ensureAspectRatio() {
         if (canvasElement === undefined) {
           return;
         }
-
         if (!CHANGE_ASPECT_RATIO) {
           return;
         }
-        
         if (startingHeight === undefined && startingWidth === undefined) {
           return;
         }
-
         canvasElement.classList.add("active");
-
         const maxWidth = window.innerWidth;
         const maxHeight = window.innerHeight;
         var newHeight, newWidth;
 
         var heightQuotient = startingHeight / maxHeight;
         var widthQuotient = startingWidth / maxWidth;
-
         if (heightQuotient > widthQuotient) {
+
           newHeight = maxHeight;
           newWidth = newHeight * startingAspect;
         } else {
+
           newWidth = maxWidth;
           newHeight = newWidth / startingAspect;
         }
-
         canvasElement.style.height = newHeight + "px";
         canvasElement.style.width = newWidth + "px";
       }
+	
       function pause() { 
         if (!canvasElement.classList.contains("active")) { 
           return
         }
-        
         GM_pause();
         pauseMenu.hidden = false;
         canvasElement.classList.add("paused");
       }
-		
+
       function resume() {
         GM_unpause();
         pauseMenu.hidden = true;
@@ -910,31 +900,26 @@
         enterFullscreenIfSupported();
         lockOrientationIfSupported();
       }
-
       function quitIfSupported() {
-        if (window.oprt && window.oprt.closeTab) {
+        if (window.oprt && window.oprt.closeTab) { 
           window.oprt.closeTab();
         } else if (window.chrome && window.chrome.runtime && window.chrome.runtime.sendMessage) {
           window.chrome.runtime.sendMessage('mpojjmidmnpcpopbebmecmjdkdbgdeke', { command: 'closeTab' })
         }
       }
-
       function enterFullscreenIfSupported() {
         if (!window.oprt || !window.oprt.enterFullscreen) { 
           return;
         }
-
         window.oprt.enterFullscreen();
         let viewStatus = GM_get_view_status();
         viewStatus.fullscreen = true;
         GM_set_view_status(viewStatus);
       }
-
       function lockOrientationIfSupported() {
         if (!window.oprt || !window.oprt.lockPortraitOrientation || !window.oprt.lockLandscapeOrientation) { 
           return;
         }
-
         let viewStatus = GM_get_view_status();
         if (viewStatus.landscape === true && viewStatus.portrait === false) {
           window.oprt.lockPortraitOrientation();
@@ -942,30 +927,28 @@
           window.oprt.lockPortraitOrientation();
         }
       }
+
       const resizeObserver = new ResizeObserver(() => {
         window.requestAnimationFrame(ensureAspectRatio);
         setTimeout(() => window.requestAnimationFrame(ensureAspectRatio), 100);
       });
       resizeObserver.observe(document.body);
-		
+
       if (/Android|iPhone|iPod/i.test(navigator.userAgent)) {
         bodyElement.className = "scrollingDisabled";
         canvasElement.classList.add("animatedSizeTransitions");
         outputContainerElement.hidden = true;
       }
-
       document.addEventListener("visibilitychange", (event) => {
         if (document.visibilityState != "visible") {
           pause();
         }
       });
-
       window.addEventListener("load", (event) => {
         if ((!window.oprt || !window.oprt.enterFullscreen) && (!window.chrome || !window.chrome.runtime || !window.chrome.runtime.sendMessage)) {
           quitButton.hidden = true;
         }
       });
-
       setWadLoadCallback(() => {
         enterFullscreenIfSupported();
         lockOrientationIfSupported();
